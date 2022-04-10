@@ -103,6 +103,7 @@
 
 ```typescript
 {
+    workSpaceReservationId: string
     workSpaceId: string  // spot being reserved
     userId: string      // user creating the reservation
 
@@ -114,3 +115,16 @@
 }
 ```
 
+
+# Work Space Review
+- A guest user can leave a review for a workspace
+```typescript
+{
+    reviewId: string
+    officeId: string
+    stars: number         // only allow: 0 - 5
+    comment: string
+    createdBy: string       // user id
+    createdAt: string
+}
+```
