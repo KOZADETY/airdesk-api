@@ -37,9 +37,7 @@ Request
 {
     email: "zac@email.com",
     password: "password123",
-    
-    // optional
-    name: "new zac"
+    name: "zac the man"
 }
 ```
 
@@ -52,7 +50,7 @@ Response `201`
 
     // password is always omitted.
 
-    name: "zac",    // defaults to beginning
+    name: "zac the man",    // defaults to beginning
     avatarImageUrl: "",
     activated: false,
     createdAt: '2022-04-14T21:26:49.675Z'
