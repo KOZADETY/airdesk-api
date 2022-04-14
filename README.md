@@ -1,7 +1,19 @@
 # Air Desk Schema Documentation
 
+# API Errors
+```typescript
+{
+    message: "Name is required."
+}
+```
+
+
+
+
+
 # Users
 
+### Schema
 ```typescript
 {
     userId: string
@@ -17,17 +29,66 @@
 }
 ```
 
+### Create User
+### `POST` `/api/users`
+
+Request
+```
+{
+    email: "zac@email.com",
+    password: "password123",
+    
+    // optional
+    name: "new zac"
+}
+```
+
+Response `201`
+> Activation email has been sent.
+```
+{
+    userId: "62261670e18ff01d33e142bc",
+    email: "zac@email.com",
+
+    // password is always omitted.
+
+    name: "zac",    // defaults to beginning
+    avatarImageUrl: "",
+    activated: false,
+    createdAt: '2022-04-14T21:26:49.675Z'
+}
+```
+
+
+
 # User Activation Confirmations
 
 - Created when a new user signs up with email
 
 ```typescript
 {
+    userActivationId: string
     userId: string
     token: string       // passed in the 'activation email' link to validate this confirmation.
     createdAt: Date
 }
 ```
+
+### Update User Action Confirmation
+### `PUT` `/api/activation/:userActivationId`
+
+Request
+```
+{
+   token: "vfvqMeTqnCjYyQZg45KebAJxemDX3HGf"
+}
+```
+
+Response `204`
+```
+// success; no response
+```
+
 
 # Office
 
@@ -62,9 +123,7 @@
 
     petsAllowed: boolean
 
-    hoursOfOperation: {
-        // TBD
-    }
+    hoursOfOperation: "8:00am to 10:00pm", // string
 
     createdAt: Date
 }
@@ -78,9 +137,9 @@
 ```typescript
 {
     workSpaceId: string
-    officeId: string
+    officeId: string    // the work space that this office belongs
 
-    identifier: string // work space 1
+    identifier: string // work space 1 or 'name'
     notes: string // text area
 
     maxNumberOfOccupants: number // must be greater than zero. e.g. 1 would be for a single desk area, 5 would be for a large free room.
@@ -121,7 +180,7 @@
 ```typescript
 {
     reviewId: string
-    officeId: string
+    officeId: string       // the b
     stars: number         // only allow: 0 - 5
     comment: string
     createdBy: string       // user id
